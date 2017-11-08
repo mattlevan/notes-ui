@@ -40,6 +40,9 @@ module.exports = {
       },
       '/~~': {
         target: 'http://localhost:8444/~~/',
+      },
+      '/pack': {
+        target: 'http://localhost:8444/'
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

@@ -4,11 +4,13 @@
       <button id='edit' v-on:click='edit'>Edit</button>
     </div>
     <div v-show="mode === 'edit'">
-      <button v-on:click='view'>View</button>
-      <br>
-      <input v-model='title' id='title' placeholder='Title'></input>
+      <br><br>
+      <button v-on:click='view' type="submit">View</button>
+      <br><br>
+      <input v-model='tit' id='tit' placeholder='Title'></input>
+      <br><br>
       <codemirror ref='myEditor'
-                  :code='code' 
+                  :code='cod' 
                   :options='editorOptions'
                   @ready='onEditorReady'
                   @focus='onEditorFocus'
@@ -22,10 +24,11 @@
 export default {
   data () {
     return {
-      code: '**Markdown** _goes_ here.',
       mode: 'edit',
-      title: '',
-      author: '',
+      cod: '',
+      tit: '',
+      aut: '',
+      tim: '',
       editorOptions: {
         tabSize: 2,
         indentUnit: 2,
@@ -47,15 +50,15 @@ export default {
     view () {
       this.mode = 'view'
       var payload = {
-        tim: new Date(),
+        tim: this.tim,
         aut: window.urb.user,
-        tit: this.title,
-        bod: this.code
+        tit: this.tit,
+        cod: this.cod
       }
       window.urb.send(payload,
         {
           appl: 'notes',
-          mark: 'notes-send'
+          mark: 'notes-note'
         },
         function callback (err, res) {
           if (err) {
@@ -64,7 +67,7 @@ export default {
         })
     },
     edit () {
-      // ensure latest revision of file is loaded
+      // pull code file from clay
       this.mode = 'edit'
     }
   },
@@ -77,10 +80,10 @@ export default {
     window.urb.init(function () {
       window.urb.appl = 'notes'
       window.urb.bind('/', { appl: 'notes' }, function (e, d) {
-        this.time = d.tim
-        this.author = d.aut
-        this.title = d.tit
-        this.code = d.bod
+        this.tim = d.tim
+        this.aut = d.aut
+        this.tit = d.tit
+        this.cod = d.cod
       })
     })
   }
