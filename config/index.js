@@ -31,15 +31,15 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'notes',
     assetsPublicPath: '/',
-    proxyTable: { 
+    proxyTable: {
       '/lib': {
         target: 'http://localhost:8444/',
       },
       '/~': {
-        target: 'http://localhost:8444/~~/',
+        target: 'http://localhost:8444/',
       },
       '/~~': {
-        target: 'http://localhost:8444/~~/',
+        target: 'http://localhost:8444/',
       },
       '/pack': {
         target: 'http://localhost:8444/'

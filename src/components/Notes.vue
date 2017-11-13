@@ -10,7 +10,7 @@
       <input v-model='tit' id='tit' placeholder='Title'></input>
       <br><br>
       <codemirror ref='myEditor'
-                  :code='cod' 
+                  :code='bod' 
                   :options='editorOptions'
                   @ready='onEditorReady'
                   @focus='onEditorFocus'
@@ -25,10 +25,10 @@ export default {
   data () {
     return {
       mode: 'edit',
-      cod: '',
+      bod: '',
       tit: '',
       aut: '',
-      tim: '',
+      tim: Math.floor(new Date().getTime()),
       editorOptions: {
         tabSize: 2,
         indentUnit: 2,
@@ -44,8 +44,8 @@ export default {
     },
     onEditorFocus (editor) {
     },
-    onEditorCodeChange (newCode) {
-      this.code = newCode
+    onEditorCodeChange (newBod) {
+      this.bod = newBod
     },
     view () {
       this.mode = 'view'
@@ -53,7 +53,7 @@ export default {
         tim: this.tim,
         aut: window.urb.user,
         tit: this.tit,
-        cod: this.cod
+        bod: this.bod
       }
       window.urb.send(payload,
         {
@@ -83,7 +83,7 @@ export default {
         this.tim = d.tim
         this.aut = d.aut
         this.tit = d.tit
-        this.cod = d.cod
+        this.bod = d.bod
       })
     })
   }
